@@ -1,0 +1,153 @@
+<!-- Hello there, weary traveller. This page is the HTML frontend for the site. -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<script>if(location.protocol!="https:")location.protocol="https:"</script>
+		<title>ChromiumChat</title>
+		<link rel="icon" href="/.png" type="image/png">
+		<style>
+      :root {
+  --glow: 30px;
+}
+
+.flicker {
+  animation: flicker 6s linear 0s infinite alternate;
+}
+.blue {
+  color: rgb(53, 174, 255);
+  text-shadow: 0px 0px var(--glow) rgb(0, 153, 255);
+  animation-duration: 5s;
+  animation-delay: -1s;
+}
+.red {
+  color: rgb(255, 72, 118);
+  text-shadow: 0px 0px var(--glow) rgb(255, 38, 92);
+  animation-duration: 7s;
+  animation-delay: 1s;
+}
+.green {
+  color: rgb(98, 255, 145);
+  text-shadow: 0px 0px var(--glow) rgb(36, 255, 102);
+  animation-duration: 6.5s;
+  animation-delay: 3s;
+}
+
+@keyframes flicker {
+  0% { opacity: 100%; }
+
+  10% { opacity: 100%; }
+  11% { opacity: 0%; }
+  12% { opacity: 100%; }
+  13% { opacity: 0%; }
+  14% { opacity: 100%; }
+
+  30% { opacity: 100%; }
+  31% { opacity: 0%; }
+  32% { opacity: 100%; }
+
+  50% { opacity: 100%; }
+  51% { opacity: 0%; }
+  52% { opacity: 100%; }
+
+  70% { opacity: 100%; }
+  71% { opacity: 0%; }
+  73% { opacity: 0%; }
+  74% { opacity: 100%; }
+
+
+  90% { opacity: 100%; }
+  91% { opacity: 0%; }
+  92% { opacity: 100%; }
+
+  100% { opacity: 100%; }
+}
+			* {
+				font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				text-align:center;
+			}
+			body {
+				background-color: #0d0d0d;
+			}
+			body > div {
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				border-radius: 5px;
+				background-color: #242424;
+				padding: 10px;
+				min-width: 60%;
+        color: white;
+			}
+			button {
+				cursor: pointer;
+        background-color: #383838;
+        color: white;
+        border-radius: 5px;
+        border: none;
+        color: rgb(98, 255, 145);
+  text-shadow: 0px 0px var(--glow) rgb(36, 255, 102);
+  animation-duration: 6.5s;
+  animation-delay: 3s;
+			}
+			#chat {
+				overflow-y: scroll;
+				max-height: 30vh;
+				padding: 10px;  
+			}
+			#chat > p {
+				text-align: left;
+			}
+			#chat > p > b {
+				margin-right: 10px;
+			}
+			#chat + input {
+				width: calc(100% - 10px);
+				margin-top: 10px;
+				text-align: left;
+        border-radius: 15px;
+        color: white;
+        background-color: #111;
+        border: none;
+			}
+			#micTgl::after {
+				content: "Mute self"
+			}
+			#micTgl.muted::after {
+				content: "Unmute self";
+			}
+			#cndcn::after {
+				content: "Connect";
+			}
+			#cndcn.cn::after {
+				content: "Disconnect";
+			}
+		</style>
+		<script src="/.js"></script>
+	</head>
+	<body>
+		<div>
+			<h1 class="flicker blue">ChromiumChat</h1>
+			<p><i class="flicker red">All content is unmoderated: use at your own risk. Inappropriate content is dispermitted.</i></p>
+			<p id="svdat"></p>
+			<button class="flicker green" onclick="joinPrivate()">Create private server</button>
+			<button class="flicker green" onclick="joinPrivate(prompt('Please enter the code:'))">Join private server</button>
+			<button class="flicker green" onclick="location.hash='';location.reload()">Join public server</button>
+			<hr>
+			<h2 class="flicker blue">Voice chat</h2>
+			<button class="flicker green" id="cndcn" onclick="connectDisconnect()"></button><button class="flicker green" class="muted" id="micTgl" onclick="toggleMic()"></button>
+			<br><hr>
+			<h2 class="flicker blue">Text chat</h2>
+			<div id="chat">
+				<h3><i class="flicker blue">Chat Box</i></h3>
+			</div>
+			<input onkeypress="if(event.key=='Enter'){textsocket.send(event.currentTarget.value);event.currentTarget.value='';}">
+		</div>
+    <script>
+    function myFunction(x) {
+  x.classList.toggle("microphone-slash");
+}
+</script>
+    <i onclick="myFunction(this)" class="microphone"></i>
+	</body>
+</html>
